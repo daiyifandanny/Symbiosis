@@ -1,0 +1,25 @@
+#! /usr/bin/env python
+
+import os
+import sys
+"""
+Batch iterating the out.req.trace generated from ./gen_block_trace.py
+and trim the smaller number of trace that is overflow.
+-> curretly used for input into the simulator
+"""
+
+#DIR_NAME = './get-scan-trace'
+DIR_NAME = sys.argv[1]
+
+for F in os.listdir(DIR_NAME):
+    if not F.endswith('out.req.trace'):
+        continue
+    items = F.split('_')
+    mem_ratio_item = items[4]
+    mem_ratio = float(mem_ratio_item.split('-')[1])
+    print(mem_ratio)
+    print(F)
+    cur_max_key = int(1 * 1024 * 1024 / 4 / mem_ratio)
+    print(cur_max_key)
+    NUM_LINE = 5000000
+    os.system(f'python ./trim_trace.py {DIR_NAME}/{F} {NUM_LINE} {cur_max_key}')
