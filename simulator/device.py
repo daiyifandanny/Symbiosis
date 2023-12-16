@@ -10,8 +10,8 @@ class BlockDevice(object):
         self.last: int = None
     
     
-    def Read(self, target: int, length: int) -> list[int]:
-        ret: list[int] = list()
+    def Read(self, target: int, length: int):
+        ret = list()
         single_latency = self.seq_single_latency if self.last is not None and target == self.last + 1 else self.rand_single_latency
         self.last = target + length - 1;
         total_latency: int = min(length, 16) * single_latency

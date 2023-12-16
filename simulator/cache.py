@@ -18,9 +18,9 @@ class CacheItem:
 
 class PageCache:
     def __init__(self, capacity: int, env: simpy.Environment) -> None:
-        self.active: typing.OrderedDict[tuple[int, int], CacheItem] = OrderedDict()
-        self.inactive: typing.OrderedDict[tuple[int, int], CacheItem] = OrderedDict()
-        self.shadow_entries: typing.OrderedDict[tuple[int, int], int] = OrderedDict()
+        self.active = OrderedDict()
+        self.inactive = OrderedDict()
+        self.shadow_entries = OrderedDict()
         self.capacity: int = int(capacity * 1)
         self.min_eviction = 64
         self.shift = 4096
@@ -52,7 +52,7 @@ class PageCache:
         
         while self.Size() >= self.capacity:
             while len(self.inactive) < len(self.active):
-                pair: tuple[tuple[int, int], CacheItem] = self.active.popitem(last=False)
+                pair = self.active.popitem(last=False)
                 self.InsertInactive(pair[0], pair[1])
             self.Evict()
         
@@ -80,20 +80,20 @@ class PageCache:
         return amount
 
 
-    def InsertActive(self, key: tuple[int, int], value: CacheItem) -> None:
+    def InsertActive(self, key, value: CacheItem) -> None:
         assert key not in self.active
         assert key not in self.inactive
         self.activation_count += 1
         self.active[key] = value
     
 
-    def InsertInactive(self, key: tuple[int, int], value: CacheItem) -> None:
+    def InsertInactive(self, key, value: CacheItem) -> None:
         assert key not in self.inactive
         assert key not in self.active
         self.inactive[key] = value
         
         
-    def Ref(self, key: tuple[int, int]) -> None:
+    def Ref(self, key) -> None:
         # return
         if key in self.active:
             item: CacheItem = self.active[key]
@@ -113,7 +113,7 @@ class PageCache:
     def ShrinkActive(self) -> int:
         amount: int = min(self.GetScanCount(self.active), len(self.active))
         for _ in range(0, amount):
-            pair: tuple[tuple[int, int], CacheItem] = self.active.popitem(last=False)
+            pair = self.active.popitem(last=False)
             self.InsertInactive(pair[0], pair[1])
         return amount
     
@@ -154,7 +154,7 @@ class PageCache:
         return num_scanned
 
     
-    def Get(self, key: tuple[int, int], reference: bool = True, active: bool = False) -> CacheItem:
+    def Get(self, key, reference: bool = True, active: bool = False) -> CacheItem:
         if self.capacity == 0:
             return None
 
@@ -169,7 +169,7 @@ class PageCache:
         return item
         
     
-    def Put(self, key: tuple[int, int], arrival: int, reference: bool, mark: bool, activate: bool) -> None:
+    def Put(self, key, arrival: int, reference: bool, mark: bool, activate: bool) -> None:
         item = CacheItem()
         item.arrival = arrival
         item.mark = mark
@@ -199,7 +199,7 @@ class PageCache:
         print("{}".format(key[1]), file=self.debug_output)
 
 
-    def PutMany(self, args: list[tuple[tuple[int, int], int, bool, bool, bool]]) -> bool:
+    def PutMany(self, args) -> bool:
         if self.capacity == 0:
             return
 

@@ -19,7 +19,7 @@ class AppCache(object):
         self.capacity: int = capacity
         self.size: float = 0
         self.ratio: float = ratio
-        self.cache: typing.OrderedDict[tuple[int, int], AppCacheItem] = OrderedDict()
+        self.cache = OrderedDict()
         self.page_cache = page_cache
     
     
@@ -34,7 +34,7 @@ class AppCache(object):
                 self.Evict()
         else:
             while math.floor(self.Size()) > self.capacity:
-                evicted: tuple[tuple[int, int], AppCacheItem] = self.cache.popitem(last=True)
+                evicted = self.cache.popitem(last=True)
                 self.size -= evicted[1].size
 
 
@@ -42,20 +42,20 @@ class AppCache(object):
         return self.size
     
 
-    def Evict(self) -> tuple[tuple[int, int], AppCacheItem]:
+    def Evict(self):
         adapter.a.CacheFilled(app=True)
-        evicted: tuple[tuple[int, int], AppCacheItem] = self.cache.popitem(last=False)
+        evicted = self.cache.popitem(last=False)
         self.size -= evicted[1].size
         return evicted
 
     
-    def Ref(self, key: tuple[int, int]) -> None:
+    def Ref(self, key) -> None:
         if key in self.cache:
             item = self.cache.pop(key)
             self.cache[key] = item
     
 
-    def Put(self, key: tuple[int, int], size: float, affect_page_cache: bool = False) -> list[tuple[tuple[int, int], AppCacheItem]]:
+    def Put(self, key, size: float, affect_page_cache: bool = False):
         assert key not in self.cache
         self.cache[key] = AppCacheItem(size)
         original_size = self.size
@@ -71,7 +71,7 @@ class AppCache(object):
         return ret
     
 
-    def Get(self, key: tuple[int, int], reference: bool) -> bool:
+    def Get(self, key, reference: bool) -> bool:
         ret: bool = False
         if key in self.cache:
             ret = True
@@ -126,7 +126,7 @@ class Application(object):
                 yield g
             stats.s.app_cost += self.miss_penalty
             yield self.env.timeout(self.miss_penalty)
-            evicteds: list[tuple[tuple[int, int], AppCacheItem]] = self.cache.Put((file.ino, start), size, True)
+            evicteds = self.cache.Put((file.ino, start), size, True)
             cache_hit = False
 
             # for evicted in evicteds:
