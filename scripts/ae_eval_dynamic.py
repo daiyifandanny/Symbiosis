@@ -19,12 +19,12 @@ output_filename_base = "{}_dyn_{}_{}G_{}.txt"
 memory_size_list = [960000000, 960000000]
 database_size_list = [2, 5]
 experiment_name_list = ["uniform-wss", "zipfian-wss", "hotspot-wss", "hotspot-hotspot", "hotspot-hotness"]
-workload1_list = [("uniform_10M_1G_req", "uniform_10M_2G_req"), ("sczipf80_10M_1G_req", "sczipf80_10M_2G_req"), 
-                    ("hotspot80_10M_1G_req", "hotspot80_10M_2G_req"), ("hotspot80_10M_2G_req", "hotspot80_10M_2G_req_m"),
+workload1_list = [("uniform_10M_1.out.req", "uniform_10M_2G_req"), ("zipfian_10M_1.out.req", "sczipf80_10M_2G_req"), 
+                    ("hotspot80_10M_1.out.req", "hotspot80_10M_2G_req"), ("hotspot80_10M_2G_req", "hotspot80_10M_2G_req_m"),
                     ("hotspot90_10M_2G_req", "hotspot70_10M_2G_req_m")]
-workload2_list = [("uniform_10M_2.5G_req", "uniform_10M_5G_req"), ("sczipf80_10M_2.5G_req", "sczipf80_10M_5G_req"), 
-                    ("hotspot80_10M_2.5G_req", "hotspot80_10M_5G_req"), ("hotspot80_10M_5G_req", "hotspot80_10M_5G_req_m"),
-                    ("hotspot90_10M_5G_req", "hotspot70_10M_5G_req_m")]
+workload2_list = [("uniform_10M_0.4.out.req", "uniform_10M_0.2.out.req"), ("zipfian_10M_0.4.out.req", "zipfian_10M_0.2.out.req"), 
+                    ("hotspot80_10M_0.4.out.req", "hotspot80_10M_0.2.out.req"), ("hotspot80_10M_0.2.out.req", "hotspot80_10M_5G_req_m"),
+                    ("hotspot90_10M_0.2.out.req", "hotspot70_10M_5G_req_m")]
 workload_list = [workload1_list, workload2_list]
 experiment_target_list = ["adapter", "baseline", "Mk0"]
 experiment_target_list = ["adapter", "baseline"]

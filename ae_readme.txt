@@ -26,7 +26,7 @@ python3 ../../scripts/ae_eval_dynamic.py
 # Experiments in Section 5.3, results will be in ae_final/
 python3 ../../scripts/ae_eval_final.py
 
-# Simulations in Section 3
+# Simulations in Section 3, results will be in ae_simulator/
 pip3 install numpy simpy
 cd ../../simulator
 python3 ../scripts/ae_simulator.py
