@@ -9,7 +9,6 @@ mongo/c-driver*
 *stat*txt
 *time*txt
 *debug*txt
-trace*
 cachestat.env
 rocksdb/build/*
 rocksdb/build2/*
