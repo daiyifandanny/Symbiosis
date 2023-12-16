@@ -7,6 +7,11 @@ due to inability to provide access to our machine with Optane device.
 
 The following commands provide instructions on executing main experiments in our paper.
 Please run on a Linux machine with Git, Cmake, Python3, and at least 10GB available memory. Ubuntu is preferred.
+Root access is required for clearing kernel page cache, for each data point in each experiment.
+
+# Package install for Ubuntu; for other Linux system, please install these packages by yourself
+sudo apt install systemtap-sdt-dev zstd libzstd-dev libsnappy-dev
+pip3 install numpy simpy
 
 # Preparation
 git clone https://github.com/daiyifandanny/Symbiosis.git
@@ -27,7 +32,6 @@ python3 ../../scripts/ae_eval_dynamic.py
 python3 ../../scripts/ae_eval_final.py
 
 # Simulations in Section 3, results will be in ae_simulator/
-pip3 install numpy simpy
 cd ../../simulator
 python3 ../scripts/ae_simulator.py
 
