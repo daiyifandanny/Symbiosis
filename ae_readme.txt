@@ -10,7 +10,9 @@ Please run on a Linux machine with Git, Cmake, Python3, and at least 10GB availa
 Root access is required for clearing kernel page cache, for each data point in each experiment.
 
 # Package install for Ubuntu; for other Linux system, please install these packages by yourself
-sudo apt install systemtap-sdt-dev zstd libzstd-dev libsnappy-dev
+# A new instance on Cloudlab with Ubuntu 20.04 image should work by exactly following the instructions below.
+sudo apt update
+sudo apt install systemtap-sdt-dev zstd libzstd-dev libsnappy-dev cmake python3-pip
 pip3 install numpy simpy
 
 # Preparation
